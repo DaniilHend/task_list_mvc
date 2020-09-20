@@ -3,9 +3,9 @@
 
 	class View
 	{
-		public $path;
+		public $path; // путь до вида
 		public $route;
-		public $layout = 'default';
+		public $layout = 'default'; // шаблон страницы
 
 		public function __construct($route)
 		{
@@ -13,11 +13,30 @@
 			$this->path = $route['controller'].'/'.$route['action'];
 		}
 
-		public function render($title, $vars = [])
+		public function render($title, $vars = []) // вывод страницы
 		{
-			ob_start();
-			require 'app/views/'.$this->path.'.php';
-			$content = ob_get_clean();
-			require 'app/views/layout/'.$this->layout.'.php';
+			extract($vars);
+			if (file_exists('app/views/'.$this->path.'.php'))
+			{
+				ob_start();
+				require 'app/views/'.$this->path.'.php';
+				$content = ob_get_clean();
+				require 'app/views/layout/'.$this->layout.'.php';
+			} else {
+				echo "Вид ".$this->path." не найден";
+			}
+		}
+
+		public static function error_code($code) // вывод страницы с ошибкой
+		{
+			http_response_code($code);
+			require 'app/views/errors/'.$code.'.php';
+			exit;
+		}
+
+		public function redirect($url)
+		{
+			header('location: '.$url);
+			exit;
 		}
 	}

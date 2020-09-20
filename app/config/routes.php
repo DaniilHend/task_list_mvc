@@ -12,6 +12,12 @@
 			'action' => 'user',
 		],
 
+		'user/check' =>
+		[
+			'controller' => 'user',
+			'action' => 'check',
+		],
+
 		'tasks' =>
 		[
 			'controller' => 'tasks',

@@ -13,21 +13,14 @@
 			
 		</div>
 		<?
-		print_r($vars);
-		// $tasks = $db->select(
-		// 	"tasks",
-		// 	'*',[
-		// 	'user_id' => $_SESSION['id']
-		// ]);
-		// foreach ($tasks as $task):
+		foreach ($tasks as $task):
 		?>
-		<!-- <div class="card status_<?=$task['status_id']?>">
+		<div class="card status_<?=$task['status_id']?>">
 			<p><?=htmlspecialchars($task['description'], ENT_QUOTES, 'UTF-8')?></p>
 			<input type="checkbox" name="task_id[]" id="task<?=$task['id']?>" value="<?=$task['id']?>">
-		</div> -->
+		</div>
 		<?
-		// endforeach;
+		endforeach;
 		?>
 	</form>
-    <a href="/logout">Logout</a>
 </div>

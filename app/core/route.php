@@ -1,6 +1,8 @@
 <?
     namespace app\core;
 
+    use app\core\view;
+
     class Route
     {
     	protected $routes = [];
@@ -48,13 +50,13 @@
         				$controller = new $path($this->params);
         				$controller->$action();
         			} else {
-        				echo "Action ".$action." не найден";
+        				View::error_code(404);
         			}
         		} else {
-        			echo "Контроллер ".$path." не найден";
+        			View::error_code(404);
         		}
         	} else {
-        		echo "Маршрут отсутствует";
+        		View::error_code(404);
         	}
         }
     }
