@@ -6,6 +6,6 @@
 	class main_controller extends controller
 	{
 		public function index_action() {
-			$this->view->render('Задачи');
+			$this->view->render('проверка', ['dadadada', 'fdgfhf']);
 		}
 	}

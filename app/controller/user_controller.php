@@ -6,7 +6,7 @@
 	class user_controller extends controller
 	{
 		public function user_action() {
-			echo "Страница входа и регистрации";
+			$this->view->render('task list - вход/регистрация');
 		}
 
 		public function signup_action() {

@@ -6,6 +6,6 @@
 	class tasks_controller extends controller
 	{
 		public function tasks_action() {
-			echo "Задачи";
+			echo "Что-то";
 		}
 	}
