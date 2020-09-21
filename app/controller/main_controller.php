@@ -8,7 +8,7 @@
 		public function index_action()
 		{
 			$data = $_POST;
-			if (!isset($_SESSION['id']) && !isset($_SESSION['login'])) // проверка на авторизацию
+			if (empty($_SESSION)) // проверка на авторизацию
 	        {
 	            header('Location: /user'); // если не авторизован, то редирект
 	        } else {
