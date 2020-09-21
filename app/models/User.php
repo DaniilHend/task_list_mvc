@@ -31,16 +31,16 @@
 				{
 					if (password_verify($data['password'], $user_check[0]['password_hash']))
 					{
-						$this->session_set($user_check[0]['id'], $user_check[0]['login']);
+						return $user_check;
 					} else {
-						$errors = 'Неверный пароль!';
+						$errors['errors'] = 'Неверный пароль!';
 						return $errors;
 					}
 				} else {
-					$this->sign_up($data);
+					return $this->sign_up($data);
 				}
 			} else {
-				$errors = 'Логин должен содержать от 3 до 16 символов!';
+				$errors['errors'] = 'Логин должен содержать от 3 до 16 символов!';
 				return $errors;
 			}
 		}
@@ -53,13 +53,6 @@
 				'password_hash' => password_hash($data['password'], PASSWORD_BCRYPT)
 			]);
 			$current_user = $this->get_user($data['login']);
-			$this->session_set($current_user[0]['id'], $current_user[0]['login']);
-		}
-
-		public function session_set($id, $login)
-		{
-			$_SESSION['id'] = $id;
-			$_SESSION['login'] = $login;
-			header('Location: /');
+			return $current_user;
 		}
 	}

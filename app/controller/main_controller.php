@@ -8,8 +8,11 @@
 		public function index_action()
 		{
 			$data = $_POST;
-			if ($this->model->is_logged() == true) {
-				if (isset($data['logout'])) {
+			if (!isset($_SESSION['id']) && !isset($_SESSION['login'])) // проверка на авторизацию
+	        {
+	            header('Location: /user'); // если не авторизован, то редирект
+	        } else {
+	            if (isset($data['logout'])) {
 					session_destroy();
 					header('Location: /');
 				}
@@ -23,11 +26,10 @@
 	            {
 	                $this->model->complete($data);
 	            }
-	            $tasks = $this->model->get_tasks();
+	            $tasks = $this->model->get_with_condition('tasks', '*', 'user_id', $_SESSION['id']);
 	            $this->view->render('проверка', ['tasks' => $tasks]);
-	        } else {	
-	            header('Location: /user');
 	        }
+			
 			
 		}
 	}

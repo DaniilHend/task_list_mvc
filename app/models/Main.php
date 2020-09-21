@@ -5,22 +5,12 @@
 
 	class Main extends Model
 	{
-		public function is_logged() // проверка на авторизацию
-		{
-			if (!isset($_SESSION['id']) && !isset($_SESSION['login']))
-	        {
-	            return false;
-	        } else {
-	            return true;
-	        }
-		}
-
-		public function get_tasks() // получение всех задач
+		public function get_with_condition($table, $fields, $condition, $value) // получение всех задач
 		{
 			$result_tasks = $this->db->select(
-				'tasks', 
-				'*', [
-					'user_id' => $_SESSION['id']
+				$table, 
+				$fields, [
+					$condition => $value
 			]);
 			return $result_tasks;
 		}
@@ -31,7 +21,7 @@
 				'tasks', [
 				'user_id' => $_SESSION['id'],
 				'description' => htmlspecialchars($data['description'], ENT_QUOTES, 'UTF-8'),
-				'status_id' => '1'
+				'status_id' => 1
 			]);
 		}
 
@@ -68,18 +58,18 @@
 				{
 					$new_task = $this->db->update(
 						'tasks', [
-						'status_id' => '2'], [
+						'status_id' => 2], [
 						'user_id' => $_SESSION['id'],
-						'status_id' => '1',
+						'status_id' => 1,
 						'id' => intval($task)
 					]);
 				}
 			} else {
 				$new_task = $this->db->update(
 					'tasks', [
-					'status_id' => '2'], [
+					'status_id' => 2], [
 					'user_id' => $_SESSION['id'],
-					'status_id' => '1',
+					'status_id' => 1,
 					'id' => intval($data['task_id'])
 				]);
 			}
